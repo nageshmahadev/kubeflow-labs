@@ -79,50 +79,6 @@ This chart should also deploy a single TensorBoard instance (and it's associated
 
 If you are pretty new to Kubernetes and Helm and don't feel like building your own helm chart just yet, you can skip to the solution where details and explanations are provided.
 
-#### Validation
-
-Once you have created and deployed your chart, looking at the pods that were created, you should see a bunch of them, as well as a single TensorBoard instance monitoring all of them:
-
-```console
-kubectl get pods
-```
-
-```
-NAME                                      READY     STATUS    RESTARTS   AGE
-module8-tensorboard-7ccb598cdd-6vg7h       1/1       Running   0          16s
-module8-tf-paint-0-0-master-juc5-0-hw5cm   0/1       Pending   0          4s
-module8-tf-paint-0-1-master-pu49-0-jp06r   1/1       Running   0          14s
-module8-tf-paint-0-2-master-awhs-0-gfra0   0/1       Pending   0          6s
-module8-tf-paint-1-0-master-5tfm-0-dhhhv   1/1       Running   0          16s
-module8-tf-paint-1-1-master-be91-0-zw4gk   1/1       Running   0          16s
-module8-tf-paint-1-2-master-r2nd-0-zhws1   0/1       Pending   0          7s
-module8-tf-paint-2-0-master-7w37-0-ff0w9   0/1       Pending   0          13s
-module8-tf-paint-2-1-master-260j-0-l4o7r   0/1       Pending   0          10s
-module8-tf-paint-2-2-master-jtjb-0-5l84q   0/1       Pending   0          9s
-```
-Note: Some pods are pending due to the GPU resource available in the cluster. If you have 3 GPUs in the cluster, then there can only be a maximum number of 3 parallel trainings at a given time.
-
-Once the TensorBoard service for this module is created, you can use the External-IP of that service to connect to the TensorBoard.
-
-```console
-kubectl get service
-
-NAME                                 TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)             AGE
-module8-tensorboard                  LoadBalancer   10.0.142.217   <PUBLIC IP>     80:30896/TCP        5m
-
-```
-
-Looking at TensorBoard, you should see something similar to this:
-![TensorBoard](tensorboard.png)
-
-> Note that TensorBoard can take a while before correctly displaying images.
-
-Here we can see that some models are doing much better than others. Models with a learning rate of `0.1` for example are producing an all-black image, we are probably over-shooting.  
-After a few minutes, we can see that the two best performing models are:
-* 5 hidden layers and learning rate of `0.01`
-* 7 hidden layers and learning rate of `0.001`
-
-At this point we could decide to kill all the other models if we wanted to free some capacity in our cluster, or launch additional new experiments based on our initial findings.
 
 #### Exercise 1
 git clone this repo
@@ -173,7 +129,50 @@ module8-tensorboard-7ccb598cdd-6vg7h   0/1    ContainerCreating  0         1s
 
 ```
 </details>
+#### Validation
 
+Once you have created and deployed your chart, looking at the pods that were created, you should see a bunch of them, as well as a single TensorBoard instance monitoring all of them:
+
+```console
+kubectl get pods
+```
+
+```
+NAME                                      READY     STATUS    RESTARTS   AGE
+module8-tensorboard-7ccb598cdd-6vg7h       1/1       Running   0          16s
+module8-tf-paint-0-0-master-juc5-0-hw5cm   0/1       Pending   0          4s
+module8-tf-paint-0-1-master-pu49-0-jp06r   1/1       Running   0          14s
+module8-tf-paint-0-2-master-awhs-0-gfra0   0/1       Pending   0          6s
+module8-tf-paint-1-0-master-5tfm-0-dhhhv   1/1       Running   0          16s
+module8-tf-paint-1-1-master-be91-0-zw4gk   1/1       Running   0          16s
+module8-tf-paint-1-2-master-r2nd-0-zhws1   0/1       Pending   0          7s
+module8-tf-paint-2-0-master-7w37-0-ff0w9   0/1       Pending   0          13s
+module8-tf-paint-2-1-master-260j-0-l4o7r   0/1       Pending   0          10s
+module8-tf-paint-2-2-master-jtjb-0-5l84q   0/1       Pending   0          9s
+```
+Note: Some pods are pending due to the GPU resource available in the cluster. If you have 3 GPUs in the cluster, then there can only be a maximum number of 3 parallel trainings at a given time.
+
+Once the TensorBoard service for this module is created, you can use the External-IP of that service to connect to the TensorBoard.
+
+```console
+kubectl get service
+
+NAME                                 TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)             AGE
+module8-tensorboard                  LoadBalancer   10.0.142.217   <PUBLIC IP>     80:30896/TCP        5m
+
+```
+
+Looking at TensorBoard, you should see something similar to this:
+![TensorBoard](tensorboard.png)
+
+> Note that TensorBoard can take a while before correctly displaying images.
+
+Here we can see that some models are doing much better than others. Models with a learning rate of `0.1` for example are producing an all-black image, we are probably over-shooting.  
+After a few minutes, we can see that the two best performing models are:
+* 5 hidden layers and learning rate of `0.01`
+* 7 hidden layers and learning rate of `0.001`
+
+At this point we could decide to kill all the other models if we wanted to free some capacity in our cluster, or launch additional new experiments based on our initial findings.
 ## Next Step
 
 [9 - Serving](../9-serving)
