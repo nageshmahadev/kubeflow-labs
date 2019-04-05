@@ -227,7 +227,7 @@ subjects:
   namespace: kube-system
 ```
 
-apply the rabc files
+apply the rbac files
 ```cli
 kubectl apply -f azurefiles-rbac.yaml
 ```
@@ -270,7 +270,7 @@ spec:
 
 Apply the pvc file to the cluster
 ```cli
-kubectl apply azurefiles-class.yaml
+kubectl apply -f azurefiles-pvc.yaml
 ```
 
 Once you completed all the steps, run:
