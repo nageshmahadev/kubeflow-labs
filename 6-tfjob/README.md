@@ -201,7 +201,7 @@ Be aware of a few details first:
 - PVC are namespaced so be sure to create it on the same namespace that is launching the TFJob objects
 - If you are using RBAC might need to run the cluster role and binding: [see docs here](https://docs.microsoft.com/en-us/azure/aks/azure-files-dynamic-pv#create-a-cluster-role-and-binding)
 
-Create an `azuefiles-rbac.yaml` file
+Create an `azurefiles-rbac.yaml` file
 ```yaml
 ---
 apiVersion: rbac.authorization.k8s.io/v1
