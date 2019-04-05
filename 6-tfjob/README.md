@@ -102,6 +102,24 @@ spec:
           restartPolicy: OnFailure
 ```
 
+For Non-GPU clusters:
+```yaml
+apiVersion: kubeflow.org/v1beta1
+kind: TFJob
+metadata:
+  name: module6-ex1
+spec:
+  tfReplicaSpecs:
+    MASTER:
+      replicas: 1
+      template:
+        spec:
+          containers:
+            - image: <DOCKER_USERNAME>/tf-mnist # From module 1
+              name: tensorflow
+          restartPolicy: OnFailure
+```
+
 Save the template that applies to you in a file, and create the `TFJob`:
 
 ```console
@@ -219,6 +237,22 @@ Turns out mounting an Azure File share into a container is really easy, we simpl
       claimName: azurefile
 ```
 
+For non-GPU Clusters:
+```yaml
+[...]
+ containers:
+  - image: <IMAGE>
+    name: tensorflow
+    volumeMounts:
+      - name: azurefile
+        subPath: module6-ex2
+        mountPath: /tmp/tensorflow
+ volumes:
+  - name: azurefile
+    persistentVolumeClaim:
+      claimName: azurefile
+```
+
 Update your template from exercise 1 to mount the Azure File share into your container, and create your new job.
 
 Once the container starts running, if you go to the Azure Portal, into your storage account, and browse your `tensorflow` file share, you should see something like that:
@@ -264,6 +298,38 @@ spec:
               persistentVolumeClaim:
                 claimName: azurefile
 ```
+
+For non-GPU cluster:
+```yaml
+apiVersion: kubeflow.org/v1beta1
+kind: TFJob
+metadata:
+  name: module6-ex2
+spec:
+  tfReplicaSpecs:
+    MASTER:
+      replicas: 1
+      template:
+        spec:
+          containers:
+            - image: <DOCKER_USERNAME>/tf-mnist
+              name: tensorflow
+              volumeMounts:
+                # By default our classifier saves the summaries in /tmp/tensorflow,
+                # so that's where we want to mount our Azure File Share.
+                - name: azurefile
+                  # The subPath allows us to mount a subdirectory within the azure file share instead of root
+                  # this is useful so that we can save the logs for each run in a different subdirectory
+                  # instead of overwriting what was done before.
+                  subPath: module6-ex2
+                  mountPath: /tmp/tensorflow
+          restartPolicy: OnFailure
+          volumes:
+            - name: azurefile
+              persistentVolumeClaim:
+                claimName: azurefile
+```
+
 
 </details>
 
