@@ -124,11 +124,11 @@ After a few minutes, we can see that the two best performing models are:
 
 At this point we could decide to kill all the other models if we wanted to free some capacity in our cluster, or launch additional new experiments based on our initial findings.
 
-#### Solution
+#### Exercise 1
 git clone this repo
 ```
 git clone https://github.com/evillgenius75/kubeflow-labs.git
-cd kubeflow-lab
+cd kubeflow-labs
 ```
 
 Check out the commented solution chart: [./solution-chart/templates/deployment.yaml](./solution-chart/templates/deployment.yaml)
