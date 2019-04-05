@@ -248,9 +248,6 @@ spec:
         - name: tensorflow
           image: ${DOCKER_USERNAME}/tf-mnist:cpu # The image to run, you can replace by your own.
           args: ["--max_steps", "500"] # Optional arguments to pass to our command. By default the command is defined by ENTRYPOINT in the Dockerfile
-          resources:
-            limits:
-              nvidia.com/gpu: 1 # We ask Kubernetes to assign 1 GPU to this container
           volumeMounts:
             - name: nvidia
               mountPath: /usr/local/nvidia
