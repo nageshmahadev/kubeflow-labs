@@ -31,6 +31,25 @@ Kubeflow uses [`ksonnet`](https://github.com/ksonnet/ksonnet) templates as a way
 
 First, install ksonnet version [0.13.1](https://ksonnet.io/#get-started), or you can [download a prebuilt binary](https://github.com/ksonnet/ksonnet/releases/tag/v0.13.1) for your OS.
 
+Pull down ksonnet in Cloud Shell
+
+```
+wget https://github.com/ksonnet/ksonnet/releases/download/v0.13.1/ks_0.13.1_linux_amd64.tar.gz
+```
+untar the zip
+
+```
+tar -zxvf ks_0.13.1_linux_amd64.tar.gz
+```
+
+Add the ksonnet cli to the CLoud Shell path
+
+```
+PATH=$PATH:~/ks_0.13.1_linux_amd64/
+```
+>NOTE: You may have to run this again if your cloud shell times out as it will not persist across sessions.
+
+
 Then run the following commands to download Kubeflow:
 
 ```bash
