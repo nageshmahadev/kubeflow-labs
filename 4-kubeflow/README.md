@@ -84,6 +84,16 @@ ${KUBEFLOW_SRC}/scripts/kfctl.sh apply k8s
 
 `kubectl get pods -n kubeflow`
 
+To make the kubeflow namespace the default for your context enter:
+```cli
+kubectl config get-contexts
+```
+Fine the name of you existing context which is the name of the cluster
+```cli
+kubectl config set-context aks-ejv --namespace kubeflow
+```
+Please use your own cluster name instread of aks-ejv
+
 should return something like this:
 
 ```
