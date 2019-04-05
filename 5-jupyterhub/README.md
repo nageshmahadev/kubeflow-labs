@@ -68,10 +68,10 @@ Then navigate to JupyterHub: http://localhost:8080/hub
 To update the default service created for JupyterHub, run the following command to change the service to type LoadBalancer:
 
 ```bash
-cd ks_app
+cd kubeflow/mykubeflowapp/ks_app
 ks param set jupyter serviceType LoadBalancer
 cd ..
-${KUBEFLOW_SOURCE}/scripts/kfctl.sh apply k8s
+~/kubeflow/scripts/kfctl.sh apply k8s
 ```
 
 Create a new Jupyter Notebook instance:
