@@ -88,7 +88,6 @@ cd kubeflow-labs
 ```
 
 Check out the commented solution chart: [./solution-chart/templates/deployment.yaml](./solution-chart/templates/deployment.yaml)
-<details>
 <summary><strong>Hyperparameter Sweep Helm Chart</strong></summary>
 
 Install the chart with command:
@@ -128,7 +127,7 @@ NAME                                  READY  STATUS             RESTARTS  AGE
 module8-tensorboard-7ccb598cdd-6vg7h   0/1    ContainerCreating  0         1s
 
 ```
-</details>
+
 #### Validation
 
 Once you have created and deployed your chart, looking at the pods that were created, you should see a bunch of them, as well as a single TensorBoard instance monitoring all of them:
