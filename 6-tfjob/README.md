@@ -201,6 +201,78 @@ Be aware of a few details first:
 - PVC are namespaced so be sure to create it on the same namespace that is launching the TFJob objects
 - If you are using RBAC might need to run the cluster role and binding: [see docs here](https://docs.microsoft.com/en-us/azure/aks/azure-files-dynamic-pv#create-a-cluster-role-and-binding)
 
+Create an `azuefiles-rbac.yaml` file
+```yaml
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: system:azure-cloud-provider
+rules:
+- apiGroups: ['']
+  resources: ['secrets']
+  verbs:     ['get','create']
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: system:azure-cloud-provider
+roleRef:
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+  name: system:azure-cloud-provider
+subjects:
+- kind: ServiceAccount
+  name: persistent-volume-binder
+  namespace: kube-system
+```
+
+apply the rabc files
+```cli
+kubectl apply -f azurefiles-rbac.yaml
+```
+
+Create an `azurefiles-class.yaml` files
+```yaml
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: azurefile
+provisioner: kubernetes.io/azure-file
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=1000
+  - gid=1000
+parameters:
+  skuName: Standard_LRS
+```
+
+Apply the storage class to the cluster
+```cli
+kubectl apply -f azurefiles-class.yaml
+```
+
+Create an `azurefiles-pvc.yaml` file
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azurefile
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile
+  resources:
+    requests:
+      storage: 5Gi
+```
+
+Apply the pvc file to the cluster
+```cli
+kubectl apply azurefiles-class.yaml
+```
+
 Once you completed all the steps, run:
 
 ```console
