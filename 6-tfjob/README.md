@@ -115,7 +115,7 @@ spec:
       template:
         spec:
           containers:
-            - image: <DOCKER_USERNAME>/tf-mnist # From module 1
+            - image: <DOCKER_USERNAME>/tf-mnist:cpu # From module 1
               name: tensorflow
           restartPolicy: OnFailure
 ```
