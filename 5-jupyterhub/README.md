@@ -73,10 +73,14 @@ ks param set jupyter serviceType LoadBalancer
 cd ..
 ~/kubeflow/scripts/kfctl.sh apply k8s
 ```
+wait for the public IP of the jupyter service
+```
+kubectl get svc -w
+```
 
 Create a new Jupyter Notebook instance:
 
-- open http://localhost:8080/hub/ in your browser (or use the public IP for the service `tf-hub-lb`)
+- open http://<PublicIP_OF_JUPYTER_SVC>/hub/ in your browser (or use the public IP for the service `tf-hub-lb`)
 - log in using any username and password
 - click the "Start My Server" button to sprawn a new Jupyter notebook
 - from the image dropdown, select a tensorflow image for your notebook
