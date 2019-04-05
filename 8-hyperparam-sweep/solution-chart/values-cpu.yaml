@@ -1,1 +1,11 @@
-image: ritazh/paint:cpu
+image: ritazh/tf-paint:cpu
+useGPU: false
+hyperParamValues:
+  learningRate:
+    - 0.001
+    - 0.01
+    - 0.1
+  hiddenLayers:
+    - 5
+    - 6
+    - 7
