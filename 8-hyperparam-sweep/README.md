@@ -51,7 +51,7 @@ hyperParamValues:
     - 6
     - 7
 ```
-
+Let's 
 That way, when installing the chart, 9 `TFJob` will actually get deployed, testing all the combination of learning rate and hidden layers depth that we specified.
 This is a very simple example (our model is also very simple), but hopefully you start to see the possibilities than Helm offers.
 
@@ -125,6 +125,12 @@ After a few minutes, we can see that the two best performing models are:
 At this point we could decide to kill all the other models if we wanted to free some capacity in our cluster, or launch additional new experiments based on our initial findings.
 
 #### Solution
+git clone this repo
+```
+git clone https://github.com/evillgenius75/kubeflow-labs.git
+cd kubeflow-lab
+```
+
 Check out the commented solution chart: [./solution-chart/templates/deployment.yaml](./solution-chart/templates/deployment.yaml)
 <details>
 <summary><strong>Hyperparameter Sweep Helm Chart</strong></summary>
@@ -133,7 +139,7 @@ Install the chart with command:
 
 ```console
 cd 8-hyperparam-sweep/solution-chart/
-helm install .
+helm install . -f values-cpu.yaml
 
 NAME:   telling-buffalo
 LAST DEPLOYED: 
