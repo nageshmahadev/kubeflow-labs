@@ -129,7 +129,7 @@ kubeflow      workflow-controller-cf79dfbff-lv7jk                       1/1     
 
 The most important components for the purpose of this lab are `jupyter-0` which is the JupyterHub spawner running on your cluster, and `tf-job-operator-v1beta1-5949f668f7-j5zrn` which is a controller that will monitor your cluster for new TensorFlow training jobs (called `TfJobs`) specifications and manages the training, we will look at this two components later.
 
-### Remove Kubeflow
+### Remove Kubeflow _ONLY IF YOU ARE DONE WITH LABS!!!!
 
 If you want to remove the Kubeflow deployment, you can run the following to remove the namespace and installed components:
 
