@@ -384,7 +384,7 @@ spec:
       template:
         spec:
           containers:
-            - image: <DOCKER_USERNAME>/tf-mnist
+            - image: <DOCKER_USERNAME>/tf-mnist:cpu
               name: tensorflow
               volumeMounts:
                 # By default our classifier saves the summaries in /tmp/tensorflow,
